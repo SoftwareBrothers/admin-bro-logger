@@ -53,7 +53,7 @@ export const createLogAction =
       const newParamsToCompare =
         params.action === 'delete'
           ? {}
-          : flat.flatten(JSON.parse(JSON.stringify(modifiedRecord.params)));
+          : flat.flatten<any, any>(JSON.parse(JSON.stringify(modifiedRecord.params)));
       await Log.create({
         recordTitle: getRecordTitle(modifiedRecord),
         resource: params.resourceId,
