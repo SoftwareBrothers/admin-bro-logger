@@ -34,9 +34,11 @@ const RecordDifference: FC<BasePropertyProps> = ({ record, property }) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (flat.unflatten(record?.params ?? {}) as any)?.[property.name] ?? {}
   );
+
   if (!differences) {
     return null;
   }
+
   return (
     <FormGroup>
       <Label>{property.label}</Label>

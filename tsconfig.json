@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es2017",
     "esModuleInterop": true,
-    "jsx": "preserve",
+    "jsx": "react",
     "declaration": true,
     "importHelpers": true,
     "strictNullChecks": true,
@@ -16,7 +16,9 @@
     "outDir": "lib",
     "declarationDir": "types",
     "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
     "allowSyntheticDefaultImports": true
   },
-  "exclude": ["test", "lib", "types", "example"]
+  "include": ["src/**/*"],
+  "exclude": ["test", "lib", "types", "node_modules"]
 }

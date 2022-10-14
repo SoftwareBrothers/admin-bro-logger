@@ -7,7 +7,7 @@ describe('withLogger', () => {
       after: [stubFunction],
       before: [stubFunction],
     };
-    const mergedAction = withLogger(initialAction);
+    const mergedAction = withLogger(initialAction, {});
 
     expect(mergedAction.after).toContain(stubFunction);
     expect(mergedAction.after?.length).toEqual(2);
@@ -21,7 +21,7 @@ describe('withLogger', () => {
       after: stubFunction,
       before: stubFunction,
     };
-    const mergedAction = withLogger(initialAction);
+    const mergedAction = withLogger(initialAction, {});
 
     expect(mergedAction.after).toContain(stubFunction);
     expect(mergedAction.after?.length).toEqual(2);

@@ -2,13 +2,25 @@ import React, { FC } from 'react';
 import { BasePropertyProps, ViewHelpers } from 'adminjs';
 import { FormGroup, Link } from '@adminjs/design-system';
 
+import { getLogPropertyName } from '../utils/get-log-property-name';
+
 const viewHelpers = new ViewHelpers();
-const RecordLink: FC<BasePropertyProps> = ({ record }) => {
+const RecordLink: FC<BasePropertyProps> = ({ record, property }) => {
   if (!record?.params) {
     return null;
   }
 
-  const { recordId, resource, recordTitle } = record?.params;
+  const { custom = {} } = property;
+  const { propertiesMapping = {} } = custom;
+
+  const recordIdParam = getLogPropertyName('recordId', propertiesMapping);
+  const resourceIdParam = getLogPropertyName('resource', propertiesMapping);
+  const recordTitleParam = getLogPropertyName('recordTitle', propertiesMapping);
+
+  const recordId = record.params[recordIdParam];
+  const resource = record.params[resourceIdParam];
+  const recordTitle = record.params[recordTitleParam];
+
   if (!recordId || !resource) {
     return null;
   }

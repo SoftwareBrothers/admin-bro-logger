@@ -1,23 +1,27 @@
 import { ResourceWithOptions } from 'adminjs';
-import { LoggerFeatureOptions } from '.';
+
 import { bundleComponents } from './components/bundle';
 import { getLogPropertyName } from './utils/get-log-property-name';
+import { LoggerFeatureOptions } from './types';
+import { ADMINJS_LOGGER_DEFAULT_RESOURCE_ID } from './constants';
 
 const { RECORD_DIFFERENCE, RECORD_LINK } = bundleComponents();
 
-export const createLoggerResource = ({
+export const createLoggerResource = <T = unknown>({
   resource,
   featureOptions,
 }: {
-  resource: unknown;
+  resource: T;
   featureOptions?: LoggerFeatureOptions;
 }): ResourceWithOptions => {
-  const { propertiesMapping = {}, resourceName } = featureOptions ?? {};
+  const { resourceOptions = {}, propertiesMapping = {} } = featureOptions ?? {};
+  const { resourceId, navigation, actions = {} } = resourceOptions;
 
   return {
     resource,
     options: {
-      id: resourceName,
+      id: resourceId ?? ADMINJS_LOGGER_DEFAULT_RESOURCE_ID,
+      navigation: navigation ?? null,
       sort: {
         direction: 'desc',
         sortBy: getLogPropertyName('createdAt', propertiesMapping),
@@ -33,9 +37,14 @@ export const createLoggerResource = ({
         edit: { isAccessible: false },
         new: { isAccessible: false },
         delete: { isAccessible: false },
+        bulkDelete: { isAccessible: false },
         show: {
           showInDrawer: true,
           containerWidth: '700px',
+          ...(actions.show ?? {}),
+        },
+        list: {
+          ...(actions.list ?? {}),
         },
       },
       properties: {
@@ -48,12 +57,18 @@ export const createLoggerResource = ({
           components: {
             show: RECORD_DIFFERENCE,
           },
+          custom: {
+            propertiesMapping,
+          },
           position: 110,
         },
         [getLogPropertyName('recordId', propertiesMapping)]: {
           components: {
             list: RECORD_LINK,
             show: RECORD_LINK,
+          },
+          custom: {
+            propertiesMapping,
           },
         },
         [getLogPropertyName('updatedAt', propertiesMapping)]: {
