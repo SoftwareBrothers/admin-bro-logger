@@ -9,8 +9,8 @@ import {
   flat,
 } from 'adminjs';
 
-import { MISSING_USER_ID_ERROR } from './errors';
 import { ADMINJS_LOGGER_DEFAULT_RESOURCE_ID } from './constants';
+import { MISSING_USER_ID_ERROR } from './errors';
 import { CreateLogActionParams, LoggerFeatureOptions } from './types';
 import { difference } from './utils/difference';
 import { getLogPropertyName } from './utils/get-log-property-name';
@@ -42,16 +42,12 @@ export const rememberInitialRecord: Before = async (
   return request;
 };
 
-const getRecordTitle = modifiedRecord => {
-  switch (typeof modifiedRecord.title) {
-    case 'string':
-      return modifiedRecord.title;
-    case 'function':
-      return modifiedRecord.title();
-  }
-  return (
-    Object.values(modifiedRecord).find(v => typeof v === 'string') ?? 'No title'
-  );
+const getRecordTitle = (modifiedRecord, currentAdmin) => {
+  const recordJson =
+    typeof modifiedRecord.toJSON === 'function'
+      ? modifiedRecord.toJSON(currentAdmin)
+      : modifiedRecord;
+  return recordJson?.title ?? 'No title';
 };
 
 export const createLogAction =
@@ -184,10 +180,11 @@ const createPersistLogAction =
         : flat.flatten<object, object>(
             JSON.parse(JSON.stringify(modifiedRecord?.params ?? {}))
           );
-
       const logParams = {
-        [getLogPropertyName('recordTitle', propertiesMapping)]:
-          getRecordTitle(modifiedRecord),
+        [getLogPropertyName('recordTitle', propertiesMapping)]: getRecordTitle(
+          modifiedRecord,
+          currentAdmin
+        ),
         [getLogPropertyName('resource', propertiesMapping)]: params.resourceId,
         [getLogPropertyName('action', propertiesMapping)]: params.action,
         [getLogPropertyName('recordId', propertiesMapping)]:
@@ -204,11 +201,10 @@ const createPersistLogAction =
           )
         ),
       };
-
       await Log.create(logParams);
     } catch (e) {
       /* The action should not fail nor display a message to the end-user
-      but we must log the error in server's console for developers */
+          but we must log the error in server's console for developers */
       console.error(e);
     }
   };
