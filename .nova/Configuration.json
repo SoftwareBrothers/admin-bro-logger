@@ -1,0 +1,5 @@
+{
+  "apexskier.eslint.config.fixOnSave" : "Enable",
+  "prettier.default-config.useTabs" : "Global Default",
+  "prettier.format-on-save" : "Disable"
+}
