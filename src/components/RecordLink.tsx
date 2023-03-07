@@ -1,8 +1,8 @@
-import React, { FC } from 'react';
-import { BasePropertyProps, ViewHelpers } from 'adminjs';
 import { FormGroup, Link } from '@adminjs/design-system';
+import { BasePropertyProps, ViewHelpers } from 'adminjs';
+import React, { FC } from 'react';
 
-import { getLogPropertyName } from '../utils/get-log-property-name';
+import { getLogPropertyName } from '../utils/get-log-property-name.js';
 
 const viewHelpers = new ViewHelpers();
 const RecordLink: FC<BasePropertyProps> = ({ record, property }) => {
