@@ -1,4 +1,5 @@
-import { isEqual, transform } from 'lodash';
+import isEqual from 'lodash/isEqual.js';
+import transform from 'lodash/transform.js';
 
 export const difference = (
   object: Record<string, string>,

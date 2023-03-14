@@ -176,10 +176,10 @@ const createPersistLogAction =
         record ?? (await ModifiedResource.findOne(String(recordId))) ?? null;
 
       const newParamsToCompare = ['delete', 'bulkDelete'].includes(action.name)
-        ? {}
-        : flat.flatten<object, object>(
+        ? ({} as Record<string, any>)
+        : (flat.flatten(
             JSON.parse(JSON.stringify(modifiedRecord?.params ?? {}))
-          );
+          ) as Record<string, any>);
       const logParams = {
         [getLogPropertyName('recordTitle', propertiesMapping)]: getRecordTitle(
           modifiedRecord,
@@ -204,7 +204,7 @@ const createPersistLogAction =
       await Log.create(logParams);
     } catch (e) {
       /* The action should not fail nor display a message to the end-user
-            but we must log the error in server's console for developers */
+                  but we must log the error in server's console for developers */
       console.error(e);
     }
   };
