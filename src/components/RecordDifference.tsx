@@ -9,7 +9,7 @@ import {
   TableHead,
   TableRow,
 } from '@adminjs/design-system';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 const Cell = styled(TableCell)`
   width: 100%;
