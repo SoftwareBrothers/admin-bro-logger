@@ -6,7 +6,6 @@
 
 import loggerFeature from './logger.feature.js';
 
-export { bundleComponents } from './components/bundle.js';
 export * from './constants.js';
 export { createLoggerResource } from './logger.resource.js';
 export * from './types.js';

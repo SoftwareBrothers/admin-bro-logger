@@ -5,7 +5,7 @@ import { CreateLogActionParams } from '../types.js';
 
 export const withLogger = (
   action: Partial<Action<ActionResponse>>,
-  { onlyForPostMethod, options = {} }: CreateLogActionParams
+  { onlyForPostMethod, options }: CreateLogActionParams
 ): Partial<Action<ActionResponse>> => ({
   ...action,
   before: (Array.isArray(action.before)

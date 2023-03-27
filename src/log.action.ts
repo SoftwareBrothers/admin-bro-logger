@@ -53,8 +53,8 @@ const getRecordTitle = (modifiedRecord, currentAdmin) => {
 export const createLogAction =
   ({
     onlyForPostMethod = false,
-    options = {},
-  }: CreateLogActionParams = {}): After<ActionResponse> =>
+    options,
+  }: CreateLogActionParams): After<ActionResponse> =>
   async (response, request, context) => {
     const { records, record, action, initialRecord, initialRecords } = context;
     const { params, method } = request;
@@ -156,7 +156,7 @@ const createPersistLogAction =
       resourceOptions = {
         resourceId: ADMINJS_LOGGER_DEFAULT_RESOURCE_ID,
       },
-    } = options ?? {};
+    } = options;
 
     const Log = _admin.findResource(
       resourceOptions.resourceId ?? ADMINJS_LOGGER_DEFAULT_RESOURCE_ID
