@@ -1,7 +1,9 @@
 import {
-  Action, ComponentLoader, ListActionResponse,
+  Action,
+  ComponentLoader,
+  ListActionResponse,
   RecordActionResponse,
-  ResourceOptions
+  ResourceOptions,
 } from 'adminjs';
 
 /**
@@ -82,7 +84,7 @@ export type LoggerFeatureOptions = {
    * In case you want to use different attribute names, you can use this
    * options to configure the mapping.
    */
-  componentLoader?: ComponentLoader,
+  componentLoader?: ComponentLoader;
   propertiesMapping?: LoggerPropertiesMapping;
   /**
    * Usually a primary key which identifies the currently logged in user.

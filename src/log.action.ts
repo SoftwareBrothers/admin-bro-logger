@@ -204,7 +204,7 @@ const createPersistLogAction =
       await Log.create(logParams);
     } catch (e) {
       /* The action should not fail nor display a message to the end-user
-                  but we must log the error in server's console for developers */
+      but we must log the error in server's console for developers */
       console.error(e);
     }
   };

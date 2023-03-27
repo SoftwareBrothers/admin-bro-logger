@@ -1,13 +1,18 @@
 import { withLogger } from '../../src/index.js';
 
+import { ComponentLoader } from 'adminjs';
+
+
+
 describe('withLogger', () => {
+  const componentLoader = new ComponentLoader()
   it('merges arrays of befores and afters', () => {
     const stubFunction = Promise.resolve;
     const initialAction = {
       after: [stubFunction],
       before: [stubFunction],
     };
-    const mergedAction = withLogger(initialAction, {});
+    const mergedAction = withLogger(initialAction, { options: { componentLoader } });
 
     expect(mergedAction.after).toContain(stubFunction);
     expect(mergedAction.after?.length).toEqual(2);
@@ -21,7 +26,7 @@ describe('withLogger', () => {
       after: stubFunction,
       before: stubFunction,
     };
-    const mergedAction = withLogger(initialAction, {});
+    const mergedAction = withLogger(initialAction, { options: { componentLoader } });
 
     expect(mergedAction.after).toContain(stubFunction);
     expect(mergedAction.after?.length).toEqual(2);
