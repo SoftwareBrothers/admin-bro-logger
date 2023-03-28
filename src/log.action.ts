@@ -11,7 +11,7 @@ import {
 
 import { ADMINJS_LOGGER_DEFAULT_RESOURCE_ID } from './constants.js';
 import { MISSING_USER_ID_ERROR } from './errors.js';
-import { CreateLogActionParams, LoggerFeatureOptions } from './types.js';
+import { CreateLogActionParams, LoggerActionOptions } from './types.js';
 import { difference } from './utils/difference.js';
 import { getLogPropertyName } from './utils/get-log-property-name.js';
 
@@ -53,8 +53,8 @@ const getRecordTitle = (modifiedRecord, currentAdmin) => {
 export const createLogAction =
   ({
     onlyForPostMethod = false,
-    options,
-  }: CreateLogActionParams): After<ActionResponse> =>
+    options = {},
+  }: CreateLogActionParams = {}): After<ActionResponse> =>
   async (response, request, context) => {
     const { records, record, action, initialRecord, initialRecords } = context;
     const { params, method } = request;
@@ -145,7 +145,7 @@ const createPersistLogAction =
   (
     request: ActionRequest,
     context: ActionContext,
-    options: LoggerFeatureOptions
+    options: LoggerActionOptions
   ) =>
   async ({ recordId, record, initialRecord }: CreatePersistLogParams) => {
     const { currentAdmin, _admin, action } = context;
@@ -156,7 +156,7 @@ const createPersistLogAction =
       resourceOptions = {
         resourceId: ADMINJS_LOGGER_DEFAULT_RESOURCE_ID,
       },
-    } = options;
+    } = options ?? {};
 
     const Log = _admin.findResource(
       resourceOptions.resourceId ?? ADMINJS_LOGGER_DEFAULT_RESOURCE_ID
