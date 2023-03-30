@@ -1,4 +1,4 @@
-import { withLogger } from '../../src';
+import { withLogger } from '../../src/index.js';
 
 describe('withLogger', () => {
   it('merges arrays of befores and afters', () => {

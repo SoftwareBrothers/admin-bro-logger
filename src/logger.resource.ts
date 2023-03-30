@@ -1,9 +1,9 @@
 import { ResourceWithOptions } from 'adminjs';
 
-import { bundleComponents } from './components/bundle';
-import { getLogPropertyName } from './utils/get-log-property-name';
-import { LoggerFeatureOptions } from './types';
-import { ADMINJS_LOGGER_DEFAULT_RESOURCE_ID } from './constants';
+import { bundleComponents } from './components/bundle.js';
+import { ADMINJS_LOGGER_DEFAULT_RESOURCE_ID } from './constants.js';
+import { LoggerFeatureOptions } from './types.js';
+import { getLogPropertyName } from './utils/get-log-property-name.js';
 
 const { RECORD_DIFFERENCE, RECORD_LINK } = bundleComponents();
 

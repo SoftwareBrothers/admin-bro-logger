@@ -9,11 +9,11 @@ import {
   flat,
 } from 'adminjs';
 
-import { ADMINJS_LOGGER_DEFAULT_RESOURCE_ID } from './constants';
-import { MISSING_USER_ID_ERROR } from './errors';
-import { CreateLogActionParams, LoggerFeatureOptions } from './types';
-import { difference } from './utils/difference';
-import { getLogPropertyName } from './utils/get-log-property-name';
+import { ADMINJS_LOGGER_DEFAULT_RESOURCE_ID } from './constants.js';
+import { MISSING_USER_ID_ERROR } from './errors.js';
+import { CreateLogActionParams, LoggerFeatureOptions } from './types.js';
+import { difference } from './utils/difference.js';
+import { getLogPropertyName } from './utils/get-log-property-name.js';
 
 export const rememberInitialRecord: Before = async (
   request: ActionRequest,
@@ -176,10 +176,10 @@ const createPersistLogAction =
         record ?? (await ModifiedResource.findOne(String(recordId))) ?? null;
 
       const newParamsToCompare = ['delete', 'bulkDelete'].includes(action.name)
-        ? {}
-        : flat.flatten<object, object>(
+        ? ({} as Record<string, any>)
+        : (flat.flatten(
             JSON.parse(JSON.stringify(modifiedRecord?.params ?? {}))
-          );
+          ) as Record<string, any>);
       const logParams = {
         [getLogPropertyName('recordTitle', propertiesMapping)]: getRecordTitle(
           modifiedRecord,
@@ -204,7 +204,7 @@ const createPersistLogAction =
       await Log.create(logParams);
     } catch (e) {
       /* The action should not fail nor display a message to the end-user
-          but we must log the error in server's console for developers */
+                  but we must log the error in server's console for developers */
       console.error(e);
     }
   };

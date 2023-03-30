@@ -1,7 +1,7 @@
 import { buildFeature, FeatureType } from 'adminjs';
 
-import { createLogAction, rememberInitialRecord } from './log.action';
-import { LoggerFeatureOptions } from './types';
+import { createLogAction, rememberInitialRecord } from './log.action.js';
+import { LoggerFeatureOptions } from './types.js';
 
 const loggerFeature = (options: LoggerFeatureOptions): FeatureType => {
   return buildFeature({
