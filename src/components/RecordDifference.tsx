@@ -1,14 +1,14 @@
-import React, { FC } from 'react';
-import { BasePropertyProps, flat } from 'adminjs';
 import {
   FormGroup,
   Label,
   Table as AdminTable,
-  TableCell,
   TableBody,
+  TableCell,
   TableHead,
   TableRow,
 } from '@adminjs/design-system';
+import { BasePropertyProps, flat } from 'adminjs';
+import React, { FC } from 'react';
 import { styled } from 'styled-components';
 
 const Cell = styled(TableCell)`
@@ -44,9 +44,11 @@ const RecordDifference: FC<BasePropertyProps> = ({ record, property }) => {
       <Label>{property.label}</Label>
       <Table>
         <Head>
-          <Cell>Property name</Cell>
-          <Cell>Before</Cell>
-          <Cell>After</Cell>
+          <Row>
+            <Cell>Property name</Cell>
+            <Cell>Before</Cell>
+            <Cell>After</Cell>
+          </Row>
         </Head>
         <TableBody>
           {Object.entries(

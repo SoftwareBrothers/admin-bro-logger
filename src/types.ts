@@ -1,5 +1,6 @@
 import {
   Action,
+  ComponentLoader,
   ListActionResponse,
   RecordActionResponse,
   ResourceOptions,
@@ -53,7 +54,7 @@ export type LoggerPropertiesMapping = {
 
 export type CreateLogActionParams = {
   onlyForPostMethod?: boolean;
-  options?: LoggerFeatureOptions;
+  options?: LoggerActionOptions;
 };
 
 /**
@@ -79,6 +80,10 @@ export type LoggerResourceOptions = {
  */
 export type LoggerFeatureOptions = {
   /**
+   * Your ComponentLoader instance. It is required for the feature to add it's components.
+   */
+  componentLoader: ComponentLoader;
+  /**
    * For the feature to work you must define a model using an ORM of your choice.
    * In case you want to use different attribute names, you can use this
    * options to configure the mapping.
@@ -93,3 +98,5 @@ export type LoggerFeatureOptions = {
    */
   resourceOptions?: LoggerResourceOptions;
 };
+
+export type LoggerActionOptions = Omit<LoggerFeatureOptions, 'componentLoader'>;
