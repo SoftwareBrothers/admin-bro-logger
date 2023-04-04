@@ -1,22 +1,26 @@
-import { ResourceWithOptions } from 'adminjs';
+import { ComponentLoader, ResourceWithOptions } from 'adminjs';
 
-import { bundleComponents } from './components/bundle.js';
+import { bundleComponent } from './utils/bundle-component.js';
 import { ADMINJS_LOGGER_DEFAULT_RESOURCE_ID } from './constants.js';
 import { LoggerFeatureOptions } from './types.js';
 import { getLogPropertyName } from './utils/get-log-property-name.js';
 
-const { RECORD_DIFFERENCE, RECORD_LINK } = bundleComponents();
-
 export const createLoggerResource = <T = unknown>({
+  componentLoader,
   resource,
   featureOptions,
 }: {
+  componentLoader: ComponentLoader;
   resource: T;
   featureOptions?: LoggerFeatureOptions;
 }): ResourceWithOptions => {
   const { resourceOptions = {}, propertiesMapping = {} } = featureOptions ?? {};
   const { resourceId, navigation, actions = {} } = resourceOptions;
-
+  const recordDifferenceComponent = bundleComponent(
+    componentLoader,
+    'RecordDifference'
+  );
+  const recordLinkComponent = bundleComponent(componentLoader, 'RecordLink');
   return {
     resource,
     options: {
@@ -55,7 +59,7 @@ export const createLoggerResource = <T = unknown>({
         },
         [getLogPropertyName('difference', propertiesMapping)]: {
           components: {
-            show: RECORD_DIFFERENCE,
+            show: recordDifferenceComponent,
           },
           custom: {
             propertiesMapping,
@@ -64,8 +68,8 @@ export const createLoggerResource = <T = unknown>({
         },
         [getLogPropertyName('recordId', propertiesMapping)]: {
           components: {
-            list: RECORD_LINK,
-            show: RECORD_LINK,
+            list: recordLinkComponent,
+            show: recordLinkComponent,
           },
           custom: {
             propertiesMapping,

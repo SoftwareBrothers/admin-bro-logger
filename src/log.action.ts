@@ -11,7 +11,7 @@ import {
 
 import { ADMINJS_LOGGER_DEFAULT_RESOURCE_ID } from './constants.js';
 import { MISSING_USER_ID_ERROR } from './errors.js';
-import { CreateLogActionParams, LoggerFeatureOptions } from './types.js';
+import { CreateLogActionParams, LoggerActionOptions } from './types.js';
 import { difference } from './utils/difference.js';
 import { getLogPropertyName } from './utils/get-log-property-name.js';
 
@@ -145,7 +145,7 @@ const createPersistLogAction =
   (
     request: ActionRequest,
     context: ActionContext,
-    options: LoggerFeatureOptions
+    options: LoggerActionOptions
   ) =>
   async ({ recordId, record, initialRecord }: CreatePersistLogParams) => {
     const { currentAdmin, _admin, action } = context;
@@ -204,7 +204,7 @@ const createPersistLogAction =
       await Log.create(logParams);
     } catch (e) {
       /* The action should not fail nor display a message to the end-user
-                  but we must log the error in server's console for developers */
+      but we must log the error in server's console for developers */
       console.error(e);
     }
   };
