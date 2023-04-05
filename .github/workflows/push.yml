@@ -25,9 +25,8 @@ jobs:
         run: yarn lint
       - name: Build
         run: yarn build
-      # TODO: Reactivate test after fixing design system build
-      # - name: Test
-      #   run: yarn test
+      - name: Test
+        run: yarn test
       - name: Release
         env:
           SLACK_WEBHOOK: ${{ secrets.ADMIN_SLACK_WEBHOOK }}
