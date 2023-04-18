@@ -1,4 +1,4 @@
-import { LoggerPropertiesMapping } from '../types';
+import { LoggerPropertiesMapping } from '../types.js';
 
 export const getLogPropertyName = (
   property: string,

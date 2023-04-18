@@ -1,4 +1,4 @@
-import { difference } from '../../src/utils/difference';
+import { difference } from '../../src/utils/difference.js';
 
 describe('difference', () => {
   it('should return difference in values', () => {

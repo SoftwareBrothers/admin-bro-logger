@@ -122,3 +122,4 @@ dist
 /lib
 /types
 example/.adminjs
+.nova

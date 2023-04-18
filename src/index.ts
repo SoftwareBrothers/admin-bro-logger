@@ -4,12 +4,11 @@
  * @section modules
  */
 
-import loggerFeature from './logger.feature';
+import loggerFeature from './logger.feature.js';
 
-export { createLoggerResource } from './logger.resource';
-export { withLogger } from './utils/with-logger';
-export { bundleComponents } from './components/bundle';
-export * from './types';
-export * from './constants';
+export * from './constants.js';
+export { createLoggerResource } from './logger.resource.js';
+export * from './types.js';
+export { withLogger } from './utils/with-logger.js';
 
 export default loggerFeature;

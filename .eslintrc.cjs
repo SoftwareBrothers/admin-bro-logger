@@ -8,7 +8,7 @@ module.exports = {
     'plugin:react/recommended',
   ],
   parserOptions: {
-    ecmaVersion: 2018,
+    ecmaVersion: 20,
     sourceType: 'module',
     ecmaFeatures: {
       jsx: true,
@@ -17,8 +17,8 @@ module.exports = {
   rules: {
     'prettier/prettier': 'error',
     'react/prop-types': 'off',
-    'semi': ['error', 'always'],
-    'quotes': ['error', 'single'],
+    semi: ['error', 'always'],
+    quotes: ['error', 'single'],
   },
   ignorePatterns: ['node_modules', 'lib'],
 };

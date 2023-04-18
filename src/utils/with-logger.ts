@@ -1,11 +1,11 @@
 import { Action, ActionResponse, After, Before } from 'adminjs';
 
-import { CreateLogActionParams } from '../types';
-import { createLogAction, rememberInitialRecord } from '../log.action';
+import { createLogAction, rememberInitialRecord } from '../log.action.js';
+import { CreateLogActionParams } from '../types.js';
 
 export const withLogger = (
   action: Partial<Action<ActionResponse>>,
-  { onlyForPostMethod, options = {} }: CreateLogActionParams
+  { onlyForPostMethod, options }: CreateLogActionParams
 ): Partial<Action<ActionResponse>> => ({
   ...action,
   before: (Array.isArray(action.before)
