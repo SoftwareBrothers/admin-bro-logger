@@ -9,7 +9,7 @@ import {
 } from '@adminjs/design-system';
 import { BasePropertyProps, flat } from 'adminjs';
 import React, { FC } from 'react';
-import { styled } from 'styled-components';
+import styled from 'styled-components';
 
 const Cell = styled(TableCell)`
   width: 100%;
