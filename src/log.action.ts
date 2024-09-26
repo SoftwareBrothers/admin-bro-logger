@@ -25,7 +25,7 @@ export const rememberInitialRecord: Before = async (
       context.initialRecords = [...records];
     } else {
       context.initialRecords = request.query?.recordIds
-        ? await context.resource.findMany(request.query.recordIds.split(','))
+        ? await context.resource.findMany(request.query.recordIds.split(','), context)
         : [];
     }
 
@@ -37,7 +37,7 @@ export const rememberInitialRecord: Before = async (
   }
 
   const id = context.record?.id?.() ?? request.params.recordId;
-  context.initialRecord = id ? await context.resource.findOne(id) : {};
+  context.initialRecord = id ? await context.resource.findOne(id, context) : {};
 
   return request;
 };
@@ -173,7 +173,7 @@ const createPersistLogAction =
       }
 
       const modifiedRecord =
-        record ?? (await ModifiedResource.findOne(String(recordId))) ?? null;
+        record ?? (await ModifiedResource.findOne(String(recordId), context)) ?? null;
 
       const newParamsToCompare = ['delete', 'bulkDelete'].includes(action.name)
         ? ({} as Record<string, any>)
@@ -201,7 +201,7 @@ const createPersistLogAction =
           )
         ),
       };
-      await Log.create(logParams);
+      await Log.create(logParams, context);
     } catch (e) {
       /* The action should not fail nor display a message to the end-user
       but we must log the error in server's console for developers */
